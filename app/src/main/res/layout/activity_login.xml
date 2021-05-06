@@ -8,7 +8,7 @@
     android:background="@color/login_bk_color"
     android:focusableInTouchMode="true"
     android:gravity="center"
-    tools:context=".LoginActivity">
+    tools:context=".LoginRegisterActivity">
 
 
     <ScrollView
@@ -30,10 +30,12 @@
                 android:layout_height="wrap_content">
 
                 <TextView
-                    style="@style/viewParent.headerText.NoMode"
-                    android:layout_alignParentLeft="true"
+                    android:id="@+id/heading_title"
                     android:layout_centerVertical="true"
-                    android:text="Already \nhave an \nAccount?" />
+                    android:layout_alignParentLeft="true"
+                    style="@style/viewParent.headerText.NoMode"
+                    android:text="Create Your \nFree Account"/>
+
 
                 <ImageView
                     android:layout_width="wrap_content"
@@ -45,40 +47,56 @@
 
 
             <EditText
-                android:id="@+id/etEmail"
-                style="@style/modifiedEditText"
+                android:id="@+id/etuserEmail"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
                 android:hint="@string/login_email_hint"
                 android:inputType="textEmailAddress"
                 android:maxLines="1" />
 
             <EditText
-                android:id="@+id/etPassword"
-                style="@style/modifiedEditText"
+                android:id="@+id/etuserPassword"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
                 android:hint="@string/login_password_hint"
                 android:inputType="textPassword"
                 android:maxLines="1" />
 
-
             <TextView
                 style="@style/viewParent"
+                android:layout_height="wrap_content"
                 android:layout_gravity="end"
                 android:layout_marginTop="10dp"
                 android:text="Forgot Password?"
                 android:textColor="@color/primaryTextColor"
                 android:textSize="@dimen/newsMoreTextSize" />
 
-            <Button
-                android:id="@+id/btnuserlogin"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Login" />
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
 
+                <Button
+                    android:id="@+id/btnlogin"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Login" />
+
+                <Button
+                    android:id="@+id/btnregister"
+                    android:layout_width="110dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="160dp"
+                    android:text="Register"
+                    />
+            </LinearLayout>
 
             <TextView
+                android:id="@+id/Textview"
                 style="@style/parent"
                 android:layout_marginTop="@dimen/loginViewsMargin"
                 android:gravity="center"
-                android:onClick="onLoginClick"
                 android:text="New user? Register Now"
                 android:textColor="@color/contentTextColor"
                 android:textSize="17sp"
@@ -145,12 +163,15 @@
         android:background="@drawable/ic_side_bg" />
 
     <ImageView
+        android:id="@+id/link_login"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
         android:layout_marginRight="11dp"
         android:layout_marginBottom="30dp"
-        android:onClick="onLoginClick"
         android:src="@drawable/ic_add_img" />
+
+
+
 </RelativeLayout>
