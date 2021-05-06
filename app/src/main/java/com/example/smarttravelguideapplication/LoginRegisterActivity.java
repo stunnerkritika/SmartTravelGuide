@@ -28,7 +28,7 @@ public class LoginRegisterActivity extends AppCompatActivity {
 
     private EditText user_email, user_password;
     private ImageView link_Login;
-    private  TextView status;
+    private TextView status;
     private Button btn_user_signup, btn_user_login;
 
     private ProgressDialog dialog;
@@ -58,40 +58,41 @@ public class LoginRegisterActivity extends AppCompatActivity {
         btn_user_login.setVisibility(View.INVISIBLE);
         btn_user_login.setEnabled(false);
 
-btn_user_signup.setOnClickListener(new View.OnClickListener() {
-    @Override
-    public void onClick(View v) {
+        btn_user_signup.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
+                RegisterUser();
+            }
+        });
 
-        RegisterUser();
-    }
-});
+        btn_user_login.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
-btn_user_login.setOnClickListener(new View.OnClickListener() {
-    @Override
-    public void onClick(View v) {
-        String Cemail = user_email.getText().toString();
-        String Cpassword = user_password.getText().toString();
-        UserLogin(Cemail, Cpassword);
-    }
-});
+                UserLogin();
+            }
+        });
 
 
         link_Login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                overridePendingTransition(R.anim.slide_in_right, R.anim.stay);
-
-                status.setText("Welcome \nSmart Travel \nGuide?");
-
-                btn_user_signup.setVisibility(View.INVISIBLE);
-                btn_user_signup.setEnabled(false);
-
-                btn_user_login.setVisibility(View.VISIBLE);
-                btn_user_login.setEnabled(true);
-
+                openlogin();
             }
         });
+    }
+
+    private void openlogin() {
+        overridePendingTransition(R.anim.slide_in_right, R.anim.stay);
+
+        status.setText("Welcome \nSmart Travel \nGuide?");
+
+        btn_user_signup.setVisibility(View.INVISIBLE);
+        btn_user_signup.setEnabled(false);
+
+        btn_user_login.setVisibility(View.VISIBLE);
+        btn_user_login.setEnabled(true);
     }
 
     private void RegisterUser() {
@@ -103,9 +104,7 @@ btn_user_login.setOnClickListener(new View.OnClickListener() {
         } else if (TextUtils.isEmpty(password)) {
             Toast.makeText(this, "Please enter Password...", Toast.LENGTH_SHORT).show();
         } else {
-
-
-            mauth.createUserWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+            mauth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     // signed in user can be handled in the listener.
@@ -113,8 +112,12 @@ btn_user_login.setOnClickListener(new View.OnClickListener() {
                         Toast.makeText(LoginRegisterActivity.this, "Authentication failed." + task.getException(),
                                 Toast.LENGTH_SHORT).show();
                     } else {
-                        startActivity(new Intent(LoginRegisterActivity.this, MainActivity.class));
-                        finish();
+
+                        Toast.makeText(LoginRegisterActivity.this, "Successfully Register User. Please enter your email and password for login", Toast.LENGTH_SHORT).show();
+                        user_email.getText().clear();
+                        user_password.getText().clear();
+                        openlogin();
+
                     }
                 }
             });
@@ -143,14 +146,14 @@ btn_user_login.setOnClickListener(new View.OnClickListener() {
         }
 
 
-
     }
 
-    private void UserLogin(String cemail, String cpassword) {
-
-        if (TextUtils.isEmpty(cemail)) {
+    private void UserLogin() {
+        String email = user_email.getText().toString();
+        String password = user_password.getText().toString();
+        if (TextUtils.isEmpty(email)) {
             Toast.makeText(this, "Please enter Email...", Toast.LENGTH_SHORT).show();
-        } else if (TextUtils.isEmpty(cpassword)) {
+        } else if (TextUtils.isEmpty(password)) {
             Toast.makeText(this, "Please enter Password...", Toast.LENGTH_SHORT).show();
         } else {
             dialog.setIndeterminate(true);
@@ -158,7 +161,7 @@ btn_user_login.setOnClickListener(new View.OnClickListener() {
             dialog.setMessage("Loading...");
             dialog.show();
 
-            mauth.signInWithEmailAndPassword(cemail, cpassword)
+            mauth.signInWithEmailAndPassword(email, password)
                     .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
@@ -166,12 +169,9 @@ btn_user_login.setOnClickListener(new View.OnClickListener() {
                                 startActivity(new Intent(LoginRegisterActivity.this, MainActivity.class));
                                 Toast.makeText(LoginRegisterActivity.this, "Successfully Login...", Toast.LENGTH_SHORT).show();
                                 dialog.dismiss();
-                                Intent intent = new Intent(LoginRegisterActivity.this, MainActivity.class);
-                                intent.putExtra("type", "Customers");
-                                startActivity(intent);
 
                             } else {
-                                Toast.makeText(LoginRegisterActivity.this, "Failed to Login Customer. Please Try Again.", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(LoginRegisterActivity.this, "Failed to Login. Please Try Again.", Toast.LENGTH_SHORT).show();
                                 dialog.dismiss();
                             }
 
