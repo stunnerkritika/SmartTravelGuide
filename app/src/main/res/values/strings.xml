@@ -3,4 +3,10 @@
 
     <string name="login_email_hint">Enter Your Email...</string>
     <string name="login_password_hint">Enter Your Password...</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="home_fragment">home_fragment</string>
+    <string name="hello_hotel_fragment">hotel</string>
+    <string name="places_fragment">places</string>
+    <string name="weather_fragment">weather</string>
 </resources>
