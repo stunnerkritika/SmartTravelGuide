@@ -8,6 +8,9 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 
+    <color name="shadow_hack_level_4"></color>
+
+
     <color name="colorPrimaryDark">#3700B3</color>
     <color name="darkTextColor">#020000</color>
     <color name="contentTextColor">#020000</color>
