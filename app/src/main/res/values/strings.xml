@@ -9,4 +9,5 @@
     <string name="hello_hotel_fragment">hotel</string>
     <string name="places_fragment">places</string>
     <string name="weather_fragment">weather</string>
+    <string name="title_activity_maps">Map</string>
 </resources>
