@@ -36,6 +36,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
+import java.text.DecimalFormat;
 
 public class HomeFragment extends Fragment implements LocationListener {
     CarouselView carouselView;
@@ -73,7 +74,7 @@ public class HomeFragment extends Fragment implements LocationListener {
                     content = content + ch;
                     data = isr.read();
                 }
-                Log.i("Content", content);
+                //Log.i("Content", content);
                 return content;
 
             } catch (MalformedURLException e) {
@@ -150,14 +151,14 @@ public class HomeFragment extends Fragment implements LocationListener {
         try {
             content = weather.execute("https://api.openweathermap.org/data/2.5/weather?lat=" + latitude + "&lon=" + longitude + "&appid=8db667a5e1bec89d9846ec74f98d1d9f").get();
             //content = weather.execute("http://api.openweathermap.org/data/2.5/weather?lat=27.700769&lon=85.300140&appid=8db667a5e1bec89d9846ec74f98d1d9f").get();
-            Log.i("contentData", content);
+          //  Log.i("contentData", content);
             //JSON
             JSONObject jsonObject = new JSONObject(content);
             String weatherDATA = jsonObject.getString("weather");
             String mainTemperature = jsonObject.getString("main");// it is not main array . it is seperate vrialble like weather
             String Location;
             double visibility;
-            Log.i("weatherDATA", weatherDATA);
+           // Log.i("weatherDATA", weatherDATA);
 
 //            /Weather Data is in Array
             JSONArray array = new JSONArray(weatherDATA);
@@ -186,7 +187,15 @@ public class HomeFragment extends Fragment implements LocationListener {
 //            for location
             Location = jsonObject.getString("name");
             txtlocation.setText(Location);
-            txttemp.setText(tempincelcius + " °C | " + tempincelfernheit + " °F");
+
+
+            DecimalFormat amountFormate  = new DecimalFormat("##.#");
+            amountFormate.setMinimumFractionDigits(2);
+            amountFormate.setMaximumFractionDigits(1);
+            txttemp.setText(amountFormate.format(tempincelcius)+" °C | "+amountFormate.format(tempincelfernheit)+ " °F");
+
+            
+//           txttemp.setText(tempincelcius + " °C | " + tempincelfernheit + " °F");
             txthumi.setText(humidity + "%");
             txtvisibility.setText(visibilityinKilometer + "km");
             txtdesc.setText(description);
