@@ -13,6 +13,8 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -22,8 +24,14 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.smarttravelguideapplication.Adapter.CabDetailAdapter;
+import com.example.smarttravelguideapplication.Adapter.touristguideAdapter;
+import com.example.smarttravelguideapplication.GlobalAPI.GlobalAPI;
+import com.example.smarttravelguideapplication.GlobalURL.GlobalURL;
 import com.example.smarttravelguideapplication.LoginSystem.LoginActivity;
 import com.example.smarttravelguideapplication.MainActivity;
+import com.example.smarttravelguideapplication.Model.cabinfoMOdel;
+import com.example.smarttravelguideapplication.Model.touristguideModel;
 import com.example.smarttravelguideapplication.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.squareup.picasso.Picasso;
@@ -40,12 +48,27 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class HomeFragment extends Fragment implements LocationListener {
+    RecyclerView touristGuideRecycleview;
+    List<touristguideModel> touristguideModelList;
+    com.example.smarttravelguideapplication.Adapter.touristguideAdapter touristguideAdapter;
+
+    RecyclerView cabdetailRecycleview;
+    List<cabinfoMOdel> cabinfoModels;
+    CabDetailAdapter cabDetailAdapter;
+
+
     CarouselView carouselView;
     String latitude, longitude;
     TextView txttemp, txthumi, txtvisibility, txtdesc, txtlocation;
-    ImageView imageicon,img_logut;
+    ImageView imageicon;
 
 
     protected LocationManager locationManager;
@@ -104,16 +127,16 @@ public class HomeFragment extends Fragment implements LocationListener {
         txthumi = (TextView) view.findViewById(R.id.txthumiditydata);
         txtvisibility = (TextView) view.findViewById(R.id.txtvisibilitydata);
         imageicon = (ImageView) view.findViewById(R.id.imgicon);
-        img_logut = (ImageView) view.findViewById(R.id.imglogout);
+//        img_logut = (ImageView) view.findViewById(R.id.imglogout);
 
-        img_logut.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FirebaseAuth.getInstance().signOut();
-                startActivity(new Intent(getActivity(), LoginActivity.class));
-                getActivity().finish();
-            }
-        });
+//        img_logut.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                FirebaseAuth.getInstance().signOut();
+//                startActivity(new Intent(getActivity(), LoginActivity.class));
+//                getActivity().finish();
+//            }
+//        });
 
         carouselView = view.findViewById(R.id.carouselView);
 
@@ -125,7 +148,77 @@ public class HomeFragment extends Fragment implements LocationListener {
         }
         locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, (android.location.LocationListener) this);
 
+
+        touristGuideRecycleview = view.findViewById(R.id.touristGuideRecycleview);
+        touristGuideinfo();
+
+        cabdetailRecycleview  = view.findViewById(R.id.cabdetailRecycleview);
+        cabdetail();
+
         return view;
+    }
+
+    private void cabdetail() {
+
+        cabinfoModels = new ArrayList<>();
+        GlobalAPI globalAPI = GlobalURL.getInstance().create(GlobalAPI.class);
+        Call<List<cabinfoMOdel>> listCall = globalAPI.getCabInfo();
+        listCall.enqueue(new Callback<List<cabinfoMOdel>>() {
+            @Override
+            public void onResponse(Call<List<cabinfoMOdel>> call, Response<List<cabinfoMOdel>> response) {
+                if (!response.isSuccessful()) {
+                    Toast.makeText(getContext(), "Error: Server is not Responding ", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                List<cabinfoMOdel> cabinfoModelList = response.body();
+                cabDetailAdapter = new CabDetailAdapter(getContext(),cabinfoModelList);
+                cabdetailRecycleview.setAdapter(cabDetailAdapter);
+                cabdetailRecycleview.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
+
+            }
+
+            @Override
+            public void onFailure(Call<List<cabinfoMOdel>> call, Throwable t) {
+                Log.d("Error Message", "Error" + t.getLocalizedMessage());
+                Toast.makeText(getContext(), "Error : No Network Access",
+                        Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
+    }
+
+    private void touristGuideinfo() {
+
+
+        touristguideModelList = new ArrayList<>();
+        GlobalAPI globalAPI = GlobalURL.getInstance().create(GlobalAPI.class);
+        Call<List<touristguideModel>> calllist = globalAPI.getGuideInfo();
+
+        calllist.enqueue(new Callback<List<touristguideModel>>() {
+            @Override
+            public void onResponse(Call<List<touristguideModel>> call, Response<List<touristguideModel>> response) {
+                if (!response.isSuccessful()) {
+                    Toast.makeText(getContext(), "Error: Server is not Responding ", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                List<touristguideModel> touristguideModels = response.body();
+                touristguideAdapter = new touristguideAdapter(getContext(),touristguideModels);
+                touristGuideRecycleview.setAdapter(touristguideAdapter);
+                touristGuideRecycleview.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
+            }
+
+            @Override
+            public void onFailure(Call<List<touristguideModel>> call, Throwable t) {
+                Log.d("Error Message", "Error" + t.getLocalizedMessage());
+                Toast.makeText(getContext(), "Error : No Network Access",
+                        Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
     }
 
 
