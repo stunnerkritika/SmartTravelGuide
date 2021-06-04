@@ -3,6 +3,8 @@ package com.example.smarttravelguideapplication.GlobalAPI;
 import com.example.smarttravelguideapplication.Model.AdventrousPlaces_Model;
 import com.example.smarttravelguideapplication.Model.HistoricalPlaces;
 import com.example.smarttravelguideapplication.Model.HotelModel;
+import com.example.smarttravelguideapplication.Model.cabinfoMOdel;
+import com.example.smarttravelguideapplication.Model.touristguideModel;
 
 import java.util.List;
 
@@ -16,8 +18,12 @@ public interface GlobalAPI {
     @GET("adventurousplace")
     Call<List<AdventrousPlaces_Model>> getadventrousPlaces();
 
-
     @GET("hotel")
     Call<List<HotelModel>> getHotelInfo();
 
+    @GET("touristguide")
+    Call<List<touristguideModel>> getGuideInfo();
+
+    @GET("cabdetail")
+    Call<List<cabinfoMOdel>> getCabInfo();
 }

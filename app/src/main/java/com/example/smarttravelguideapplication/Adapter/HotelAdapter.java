@@ -2,7 +2,6 @@ package com.example.smarttravelguideapplication.Adapter;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -20,11 +19,10 @@ import com.example.smarttravelguideapplication.GlobalURL.GlobalURL;
 import com.example.smarttravelguideapplication.Model.HotelModel;
 import com.example.smarttravelguideapplication.R;
 import com.example.smarttravelguideapplication.StrictMode.strictmodeclass;
-import com.example.smarttravelguideapplication.fragement.hotelInnerActivity.HotelInnerActivity;
+import com.example.smarttravelguideapplication.fragement.InnerActivity.HotelInnerActivity;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.List;
 

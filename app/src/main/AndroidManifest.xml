@@ -48,7 +48,7 @@
         <activity android:name=".LoginSystem.VerificationActivity" />
         <activity android:name=".LoginSystem.LoginActivity" />
         <activity android:name=".MainActivity"/>
-        <activity android:name=".fragement.hotelInnerActivity.HotelInnerActivity" />
+        <activity android:name=".fragement.InnerActivity.HotelInnerActivity" />
 
     </application>
 

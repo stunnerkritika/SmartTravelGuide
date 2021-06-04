@@ -1,4 +1,4 @@
-package com.example.smarttravelguideapplication.fragement.hotelInnerActivity;
+package com.example.smarttravelguideapplication.fragement.InnerActivity;
 
 import android.content.Intent;
 import android.net.Uri;
