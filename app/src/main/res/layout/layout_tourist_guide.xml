@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="10dp"
+    android:background="@drawable/light_black"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp">
+
+        <ImageView
+            android:id="@+id/guideimg"
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/round_outline" />
+
+        <TextView
+            android:id="@+id/guidename"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/guideimg"
+            android:layout_margin="10dp"
+            android:background="@drawable/round_outline"
+            android:gravity="center"
+            android:text="Name"
+            android:textColor="#000000"
+            android:textSize="25dp" />
+
+        <TextView
+            android:id="@+id/guideaddress"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/guidename"
+            android:layout_margin="10dp"
+            android:background="@color/white"
+            android:drawableLeft="@drawable/ic_baseline_place_24"
+            android:drawablePadding="10dp"
+            android:text="Address"
+            android:textColor="#000000"
+            android:textSize="20dp" />
+
+        <TextView
+            android:id="@+id/guidecontact"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/guideaddress"
+            android:layout_margin="10dp"
+            android:autoLink="phone"
+            android:background="@color/white"
+            android:clickable="true"
+            android:drawableLeft="@drawable/ic_baseline_call_24"
+            android:drawablePadding="10dp"
+            android:text="Phone Number"
+            android:textColor="#000000"
+            android:textColorLink="#65c69d"
+            android:textSize="20dp" />
+
+        <TextView
+            android:id="@+id/guidelanguage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/guidecontact"
+            android:layout_margin="10dp"
+            android:background="@color/white"
+            android:drawableLeft="@drawable/ic_baseline_language_24"
+            android:drawablePadding="10dp"
+            android:text="Language"
+            android:textColor="#000000"
+            android:textSize="20dp" />
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/guidedesc"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:background="@color/white"
+        android:justificationMode="inter_word"
+        android:padding="05dp"
+        android:text="Description"
+        android:textColor="@color/black"
+        android:textSize="18dp" />
+
+</LinearLayout>

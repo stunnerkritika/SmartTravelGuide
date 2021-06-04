@@ -6,6 +6,8 @@ import android.os.Handler;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.smarttravelguideapplication.LoginSystem.LoginActivity;
+
 public class SplashScreenActivity extends AppCompatActivity {
 
     @Override

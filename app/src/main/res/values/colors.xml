@@ -21,4 +21,10 @@
 
     <color name="iron">#CCCCCC</color>
 
+    <color name="clr_otp_bg">#E9E4F0</color>
+    <color name="clr_otp_btn_yellow">#F8CD06</color>
+    <color name="clr_white_text">#FFFFFF</color>
+    <color name="clr_grey_text">#D3D3D3</color>
+    <color name="clr_grey_text_transparent">#80D3D3D3</color>
+
 </resources>

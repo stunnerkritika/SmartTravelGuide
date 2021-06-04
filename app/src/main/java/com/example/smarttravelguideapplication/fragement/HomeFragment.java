@@ -2,6 +2,7 @@ package com.example.smarttravelguideapplication.fragement;
 
 import android.Manifest;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
@@ -21,8 +22,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.smarttravelguideapplication.LoginSystem.LoginActivity;
 import com.example.smarttravelguideapplication.MainActivity;
 import com.example.smarttravelguideapplication.R;
+import com.google.firebase.auth.FirebaseAuth;
 import com.squareup.picasso.Picasso;
 import com.synnapps.carouselview.CarouselView;
 import com.synnapps.carouselview.ImageClickListener;
@@ -42,7 +45,7 @@ public class HomeFragment extends Fragment implements LocationListener {
     CarouselView carouselView;
     String latitude, longitude;
     TextView txttemp, txthumi, txtvisibility, txtdesc, txtlocation;
-    ImageView imageicon;
+    ImageView imageicon,img_logut;
 
 
     protected LocationManager locationManager;
@@ -101,7 +104,16 @@ public class HomeFragment extends Fragment implements LocationListener {
         txthumi = (TextView) view.findViewById(R.id.txthumiditydata);
         txtvisibility = (TextView) view.findViewById(R.id.txtvisibilitydata);
         imageicon = (ImageView) view.findViewById(R.id.imgicon);
+        img_logut = (ImageView) view.findViewById(R.id.imglogout);
 
+        img_logut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FirebaseAuth.getInstance().signOut();
+                startActivity(new Intent(getActivity(), LoginActivity.class));
+                getActivity().finish();
+            }
+        });
 
         carouselView = view.findViewById(R.id.carouselView);
 
