@@ -11,6 +11,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -20,22 +21,35 @@ import com.example.smarttravelguideapplication.fragement.PlaceFragment;
 import com.example.smarttravelguideapplication.fragement.WeatherFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationItemView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.synnapps.carouselview.CarouselView;
 import com.synnapps.carouselview.ImageClickListener;
 import com.synnapps.carouselview.ImageListener;
 
 public class MainActivity extends AppCompatActivity {
-
-
-
+            
+    FloatingActionButton fab;
+            
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        fab = findViewById(R.id.fab);
 
-        BottomNavigationView bottomNavigationView =findViewById(R.id.bottom_navigation);
-        bottomNavigationView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+        CustomBottomNavigationView1 customBottomNavigationView1 = findViewById(R.id.customBottomBar);
+        customBottomNavigationView1.inflateMenu(R.menu.menu_navigation);
+        customBottomNavigationView1.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+
         loadFragment(new HomeFragment(), 1);
+        
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(MainActivity.this, "Explore Some places ", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(MainActivity.this, MapsActivity.class));
+            }
+        });
+        
 
     }
 

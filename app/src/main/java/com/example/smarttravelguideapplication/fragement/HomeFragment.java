@@ -33,6 +33,7 @@ import com.example.smarttravelguideapplication.MainActivity;
 import com.example.smarttravelguideapplication.Model.cabinfoMOdel;
 import com.example.smarttravelguideapplication.Model.touristguideModel;
 import com.example.smarttravelguideapplication.R;
+import com.example.smarttravelguideapplication.Weather;
 import com.google.firebase.auth.FirebaseAuth;
 import com.squareup.picasso.Picasso;
 import com.synnapps.carouselview.CarouselView;
@@ -68,7 +69,7 @@ public class HomeFragment extends Fragment implements LocationListener {
     CarouselView carouselView;
     String latitude, longitude;
     TextView txttemp, txthumi, txtvisibility, txtdesc, txtlocation;
-    ImageView imageicon;
+    ImageView imageicon, img_logut;
 
 
     protected LocationManager locationManager;
@@ -76,42 +77,6 @@ public class HomeFragment extends Fragment implements LocationListener {
 
     int[] sampleImages = {R.drawable.nepal, R.drawable.buddhist, R.drawable.stupa};
 
-    public class Weather extends AsyncTask<String, Void, String> {// first String means Url is in string, Void mean nothing, Third String means return type will be in string
-
-        @Override
-        protected String doInBackground(String... address) {
-//String... means multiple address can be send. It acts as array
-            try {
-                java.net.URL url = new java.net.URL(address[0]);
-                HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-                //Establish connection with address
-                connection.connect();
-
-                //retrieve data from url
-                InputStream is = connection.getInputStream();
-                InputStreamReader isr = new InputStreamReader(is);
-
-                //Retrieve data and return it as String
-                int data = isr.read();
-                String content = "";
-                char ch;
-                while (data != -1) {
-                    ch = (char) data;
-                    content = content + ch;
-                    data = isr.read();
-                }
-                //Log.i("Content", content);
-                return content;
-
-            } catch (MalformedURLException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-            return null;
-        }
-    }
 
 
     @Override
@@ -127,16 +92,16 @@ public class HomeFragment extends Fragment implements LocationListener {
         txthumi = (TextView) view.findViewById(R.id.txthumiditydata);
         txtvisibility = (TextView) view.findViewById(R.id.txtvisibilitydata);
         imageicon = (ImageView) view.findViewById(R.id.imgicon);
-//        img_logut = (ImageView) view.findViewById(R.id.imglogout);
+        img_logut = (ImageView) view.findViewById(R.id.imglogout);
 
-//        img_logut.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                FirebaseAuth.getInstance().signOut();
-//                startActivity(new Intent(getActivity(), LoginActivity.class));
-//                getActivity().finish();
-//            }
-//        });
+        img_logut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FirebaseAuth.getInstance().signOut();
+                startActivity(new Intent(getActivity(), LoginActivity.class));
+                getActivity().finish();
+            }
+        });
 
         carouselView = view.findViewById(R.id.carouselView);
 
@@ -152,7 +117,7 @@ public class HomeFragment extends Fragment implements LocationListener {
         touristGuideRecycleview = view.findViewById(R.id.touristGuideRecycleview);
         touristGuideinfo();
 
-        cabdetailRecycleview  = view.findViewById(R.id.cabdetailRecycleview);
+        cabdetailRecycleview = view.findViewById(R.id.cabdetailRecycleview);
         cabdetail();
 
         return view;
@@ -172,7 +137,7 @@ public class HomeFragment extends Fragment implements LocationListener {
                 }
 
                 List<cabinfoMOdel> cabinfoModelList = response.body();
-                cabDetailAdapter = new CabDetailAdapter(getContext(),cabinfoModelList);
+                cabDetailAdapter = new CabDetailAdapter(getContext(), cabinfoModelList);
                 cabdetailRecycleview.setAdapter(cabDetailAdapter);
                 cabdetailRecycleview.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
 
@@ -205,7 +170,7 @@ public class HomeFragment extends Fragment implements LocationListener {
                 }
 
                 List<touristguideModel> touristguideModels = response.body();
-                touristguideAdapter = new touristguideAdapter(getContext(),touristguideModels);
+                touristguideAdapter = new touristguideAdapter(getContext(), touristguideModels);
                 touristGuideRecycleview.setAdapter(touristguideAdapter);
                 touristGuideRecycleview.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
             }
@@ -256,14 +221,14 @@ public class HomeFragment extends Fragment implements LocationListener {
         try {
             content = weather.execute("https://api.openweathermap.org/data/2.5/weather?lat=" + latitude + "&lon=" + longitude + "&appid=8db667a5e1bec89d9846ec74f98d1d9f").get();
             //content = weather.execute("http://api.openweathermap.org/data/2.5/weather?lat=27.700769&lon=85.300140&appid=8db667a5e1bec89d9846ec74f98d1d9f").get();
-          //  Log.i("contentData", content);
+            //  Log.i("contentData", content);
             //JSON
             JSONObject jsonObject = new JSONObject(content);
             String weatherDATA = jsonObject.getString("weather");
             String mainTemperature = jsonObject.getString("main");// it is not main array . it is seperate vrialble like weather
             String Location;
             double visibility;
-           // Log.i("weatherDATA", weatherDATA);
+            // Log.i("weatherDATA", weatherDATA);
 
 //            /Weather Data is in Array
             JSONArray array = new JSONArray(weatherDATA);
@@ -294,12 +259,12 @@ public class HomeFragment extends Fragment implements LocationListener {
             txtlocation.setText(Location);
 
 
-            DecimalFormat amountFormate  = new DecimalFormat("##.#");
+            DecimalFormat amountFormate = new DecimalFormat("##.#");
             amountFormate.setMinimumFractionDigits(2);
             amountFormate.setMaximumFractionDigits(1);
-            txttemp.setText(amountFormate.format(tempincelcius)+" °C | "+amountFormate.format(tempincelfernheit)+ " °F");
+            txttemp.setText(amountFormate.format(tempincelcius) + " °C | " + amountFormate.format(tempincelfernheit) + " °F");
 
-            
+
 //           txttemp.setText(tempincelcius + " °C | " + tempincelfernheit + " °F");
             txthumi.setText(humidity + "%");
             txtvisibility.setText(visibilityinKilometer + "km");

@@ -63,6 +63,19 @@
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintVertical_bias="0.131" />
 
+                    <ImageView
+                        android:id="@+id/imglogout"
+                        android:layout_width="99dp"
+                        android:layout_height="88dp"
+                        android:elevation="2dp"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/logout"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.94"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintVertical_bias="0.56" />
+
                     <TextView
                         android:id="@+id/txtmaintemp"
                         android:layout_width="wrap_content"
