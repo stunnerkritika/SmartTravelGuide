@@ -6,16 +6,13 @@
     android:background="@drawable/background"
     tools:context=".MainActivity">
 
-    <include
-        android:id="@+id/toolbar_id"
-        layout="@layout/toolbar" />
 
     <LinearLayout
         android:id="@+id/frst_ll"
         android:layout_width="match_parent"
         android:layout_height="300dp"
-        android:layout_below="@+id/toolbar_id"
-
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="80dp"
         android:gravity="center">
 
         <ImageView
@@ -39,7 +36,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingLeft="10dp"
-            android:editable="false"
             android:text="Nepal (+977)"
             android:textColor="@color/black" />
 

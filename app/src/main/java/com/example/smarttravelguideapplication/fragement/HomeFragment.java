@@ -34,7 +34,11 @@ import com.example.smarttravelguideapplication.Model.cabinfoMOdel;
 import com.example.smarttravelguideapplication.Model.touristguideModel;
 import com.example.smarttravelguideapplication.R;
 import com.example.smarttravelguideapplication.Weather;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.squareup.picasso.Picasso;
 import com.synnapps.carouselview.CarouselView;
 import com.synnapps.carouselview.ImageClickListener;
@@ -57,6 +61,10 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class HomeFragment extends Fragment implements LocationListener {
+
+    FirebaseAuth firebaseAuth;
+    FirebaseFirestore firebaseFirestore;
+
     RecyclerView touristGuideRecycleview;
     List<touristguideModel> touristguideModelList;
     com.example.smarttravelguideapplication.Adapter.touristguideAdapter touristguideAdapter;
@@ -68,7 +76,7 @@ public class HomeFragment extends Fragment implements LocationListener {
 
     CarouselView carouselView;
     String latitude, longitude;
-    TextView txttemp, txthumi, txtvisibility, txtdesc, txtlocation;
+    TextView txttemp, txthumi, txtvisibility, txtdesc, txtlocation,c_user_name,c_user_location,c_user_email;
     ImageView imageicon, img_logut;
 
 
@@ -85,6 +93,26 @@ public class HomeFragment extends Fragment implements LocationListener {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
+
+        c_user_name = view.findViewById(R.id.c_username);
+        c_user_location = view.findViewById(R.id.c_userlocation);
+        c_user_email = view.findViewById(R.id.c_useremail);
+
+        firebaseAuth = FirebaseAuth.getInstance();
+        firebaseFirestore = FirebaseFirestore.getInstance();
+
+
+        DocumentReference docref = firebaseFirestore.collection("users").document(firebaseAuth.getCurrentUser().getUid());
+        docref.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                if (documentSnapshot.exists()) {
+                    c_user_name.setText(documentSnapshot.getString("FirstName") + documentSnapshot.getString("LastName"));
+                    c_user_email.setText(documentSnapshot.getString("Emailaddress"));
+                    c_user_location.setText(documentSnapshot.getString("Location"));
+                }
+            }
+        });
 
         txttemp = (TextView) view.findViewById(R.id.txtmaintemp);
         txtlocation = (TextView) view.findViewById(R.id.txtlocation);

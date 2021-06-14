@@ -77,11 +77,13 @@ public class ProfileActivity extends AppCompatActivity {
                     String fname = firstName.getText().toString();
                     String lname = LastName.getText().toString();
                     String userEmail = UEmail.getText().toString();
+                    String userlocation = AddressLine.getText().toString();
 
                     Map<String, Object> user = new HashMap<>();
                     user.put("FirstName", fname);
                     user.put("LastName", lname);
                     user.put("Emailaddress", userEmail);
+                    user.put("Location", userlocation);
 
                     docref.set(user).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override

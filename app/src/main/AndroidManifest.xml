@@ -38,16 +38,18 @@
         <activity android:name=".checkNetworkActivity">
         </activity>
 
-        <activity android:name=".SplashScreenActivity" />
+        <activity android:name=".SplashScreenActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity android:name=".OnboardingActivity"/>
         <activity android:name=".LoginSystem.ProfileActivity"/>
         <activity android:name=".LoginSystem.VerificationActivity" />
         <activity android:name=".LoginSystem.LoginActivity" />
         <activity android:name=".MainActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+
         </activity>
         <activity android:name=".fragement.InnerActivity.HotelInnerActivity" />
         <activity android:name=".fragement.InnerActivity.CabDetailInnerActivity" />
