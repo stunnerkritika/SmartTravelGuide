@@ -10,7 +10,7 @@
     <FrameLayout
         android:id="@+id/frame_container"
         android:layout_width="match_parent"
-        android:layout_height="670dp"
+        android:layout_height="675dp"
         app:layout_constraintBottom_toTopOf="@id/customBottomBar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
