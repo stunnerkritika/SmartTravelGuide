@@ -39,6 +39,7 @@
         </activity>
 
         <activity android:name=".SplashScreenActivity" />
+        <activity android:name=".OnboardingActivity"/>
         <activity android:name=".LoginSystem.ProfileActivity"/>
         <activity android:name=".LoginSystem.VerificationActivity" />
         <activity android:name=".LoginSystem.LoginActivity" />
