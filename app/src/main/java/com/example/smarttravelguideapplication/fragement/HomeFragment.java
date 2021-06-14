@@ -88,11 +88,9 @@ public class HomeFragment extends Fragment implements LocationListener {
 
         txttemp = (TextView) view.findViewById(R.id.txtmaintemp);
         txtlocation = (TextView) view.findViewById(R.id.txtlocation);
-        txtdesc = (TextView) view.findViewById(R.id.txtdesc);
-        txthumi = (TextView) view.findViewById(R.id.txthumiditydata);
-        txtvisibility = (TextView) view.findViewById(R.id.txtvisibilitydata);
+
         imageicon = (ImageView) view.findViewById(R.id.imgicon);
-        img_logut = (ImageView) view.findViewById(R.id.imglogout);
+        img_logut = (ImageView) view.findViewById(R.id.img_logout);
 
         img_logut.setOnClickListener(new View.OnClickListener() {
             @Override
