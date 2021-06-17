@@ -231,7 +231,7 @@ public class HomeFragment extends Fragment implements LocationListener {
 
     }
 
-    @Override
+   @Override
     public void onLocationChanged(@NonNull Location location) {
         // textview2.setText("Latitude:" + location.getLatitude() + ", Longitude:" + location.getLongitude());
         double lat = location.getLatitude();

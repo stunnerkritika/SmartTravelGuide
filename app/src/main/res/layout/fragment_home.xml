@@ -154,10 +154,10 @@
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/touristGuideRecycleview"
+                android:background="@drawable/rounded_edt_box"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
-                android:background="@color/white"
                 android:padding="10dp" />
 
             <ImageView
